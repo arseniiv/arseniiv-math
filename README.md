@@ -1,4 +1,4 @@
-quaternions
-===========
+arseniiv-math
+=============
 
-Quaternion support for Ceylon
+Some mathematical stuff written in Ceylon.
