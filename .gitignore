@@ -1,0 +1,11 @@
+*.class
+*.jar
+
+.classpath
+.project
+
+.ceylon/
+.exploded/
+.settings/
+classes/
+modules/
