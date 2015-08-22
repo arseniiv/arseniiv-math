@@ -111,6 +111,8 @@ see(`function Quaternion.rotate`)
 shared Quaternion makeRotor(axis, Float angle) {
 	"Axis of rotation, normalized vector quaternion."
 	Quaternion axis;
+	"Axis should be vector, thus having zero scalar part."
+	assert(axis.re == 0.0);
 	// return exp(0.5 * angle ** axis);
 	value vmag = 0.5 * angle;
 	return Quaternion(fcos(vmag)) + fsin(vmag) ** axis;
