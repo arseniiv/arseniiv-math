@@ -1,12 +1,15 @@
-import ceylon.math.float { pi }
-import com.arseniiv.math.quaternion { ... }
+import com.arseniiv.math.complex { ... }
 
 "Run the module `com.arseniiv.math`."
 void run() {
-	value v = Quaternion(0.0, 1.0, 2.0, 3.0);
-	value r = makeRotor(Quaternion(0.0, 0.0, 1.0, 0.0), pi/2);
-	value v2 = v.rotate(r);
-	print("v = ``v``");
-	print("r = ``r``");
-	print("r * v * r* = ``v2``");
+	value a = complexInfinity;
+	value b = Complex(0.0);
+	print("a = ``a``");
+	print("a^-1 = ``a.inverse``");
+	print("a.arg = ``a.argument``");
+	print("a.infinite = ``a.infinite``");
+	print("a.finite = ``a.finite``");
+	print("b = ``b``");
+	print("b^-1 = ``b.inverse``");
+	print("b.arg = ``b.argument``");
 }

@@ -8,7 +8,23 @@ import com.arseniiv.math.common {
 	signChar
 }
 
-"A complex number."
+"A complex number.
+ 
+ You can get a _finite_ complex number with
+ 
+     value z = Complex(0.0, 1.0); // imaginary uint
+     
+ and also a unique _infinite_ by using [[complexInfinity]].
+ It’s discouraged calling `Complex(re, im)` with `im` not being
+ [[finite|Float.finite]] number. Invocations with not a finite `re`
+ result in the following:
+ - `Complex(infinity, …) == Complex(-infinity, …) == complexInfinity`
+ - `Complex(undefined, …)` are all considered undefined and
+ not equal to anything other.
+ 
+ Algebra on these values may fail. Guaranteed identities are:
+ - `0.inverse == complexInfinity`
+ - `complexInfinity.inverse == 0`"
 by("arseniiv")
 shared class Complex(re = 0.0, im = 0.0)
 		extends Object()
@@ -67,17 +83,20 @@ shared class Complex(re = 0.0, im = 0.0)
 	}
 	
 	shared actual String string {
-		return "``re`` ``signChar(im)`` ``im.magnitude``i ";
+		return finite
+				then "``re`` ``signChar(im)`` ``im.magnitude``i "
+				else "complexInfinity";
 	}
 	
 	shared actual Boolean equals(Object that) {
 		if (is Complex that) {
-			return re == that.re && im == that.im;
+			if (re == that.re && im == that.im) { return true; }
+			else if (re.infinite) { return that.re.infinite; }
 		}
-		else { return false; }
+		return false;
 	}
 	
-	hash => re.hash + im.hash;
+	hash => re.hash + (re.finite then im.hash else 0);
 	
 	"Inverse `q^(-1)` of this complex number.
 	 
@@ -85,7 +104,8 @@ shared class Complex(re = 0.0, im = 0.0)
 	 - `z^(-1) * z == z * z^(-1) == 1`
 	 - `z^(-1)^(-1) == z`
 	 - `(z * w)^(-1) == z^(-1) * w^(-1)`"
-	shared Complex inverse => 1.0/magnitudeSqr ** conjugate;
+	shared Complex inverse =>
+			finite then 1.0/magnitudeSqr ** conjugate else zero;
 	
 	"The magnitude (absolute value) of this complex number.
 	 
@@ -116,12 +136,23 @@ shared class Complex(re = 0.0, im = 0.0)
 	 
 	     z == magnitude ** exp(Complex(0, argument))
 	     
-	 principal value is contained in the interval `[-π; π]` "
-	shared Float argument => atan2(im, re);
+	 principal value is contained in the interval `[-π; π]`.
+	 
+	 Argument of `complexInfinity` is undefined,
+	 argument of values close to zero may be equal to `0` or `±π`
+	 according to cases listed on [[atan2]] behavior."
+	shared Float argument =>
+			finite then atan2(im, re) else +0.0/+0.0;
 	
-	Boolean finite => re.finite && im.finite;
+	"Determines whether this value is finite. Produces `false` for
+	 [[complexInfinity]] and undefined values."
+	shared Boolean finite => re.finite;
 	
-	Boolean infinite => re.infinite || im.infinite;
+	"Determines whether this value is [[complexInfinity]]."
+	shared Boolean infinite => re.infinite;
+	
+	"Determines whether this value is undefined."
+	shared Boolean undefined => re.undefined;
 }
 
 "A zero [[Complex]]."
@@ -129,3 +160,6 @@ Complex zero = Complex();
 
 "An unit [[Complex]]."
 Complex unit = Complex(1.0);
+
+"An infinite [[Complex]]."
+shared Complex complexInfinity = Complex(infinity);

@@ -10,13 +10,17 @@ import com.arseniiv.math {
 	tau
 }
 
+"Make complex number given its polar form."
+by("arseniiv")
+shared Complex fromPolar(Float magnitude, Float argument) =>
+		Complex {
+	re = magnitude * fcos(argument);
+	im = magnitude * fsin(argument);
+};
+
 "Exponent of a complex number."
 by("arseniiv")
-shared Complex exp(Complex z) {
-	value ere = fexp(z.re);
-	value im = z.im;
-	return Complex(ere * fcos(im), ere * fsin(im));
-}
+shared Complex exp(Complex z) => fromPolar(fexp(z.re), z.im);
 
 "Logarithm of a complex number.
  
@@ -89,7 +93,7 @@ shared Complex sinh(Complex z) {
 	return Complex(fsinh(re) * fcos(im), fcosh(re) * fsin(im));
 }
 
-"`(index % n)`-th solution of equation `w^n == z`."
+"`(index % n)`-th solution of an equation `w^n == z`."
 by("arseniiv")
 shared Complex root(Complex z, Integer n, Integer index = 0) {
 	"`n` must be positive number"
@@ -97,7 +101,37 @@ shared Complex root(Complex z, Integer n, Integer index = 0) {
 	value overN = 1.0 / n;
 	value mag = z.magnitude^overN;
 	value arg = (z.argument + tau * index) * overN;
-	return Complex(mag * fcos(arg), mag * fsin(arg));
+	return fromPolar(mag, arg);
+}
+
+"All solutions of an equation `w^n == z`."
+by("arseniiv")
+shared {Complex+} roots(Complex z, Integer n) {
+	"`n` must be positive number"
+	assert (n.positive);
+	value overN = 1.0 / n;
+	value mag = z.magnitude^overN;
+	value arg = z.argument * overN;
+	value arg2 = tau * overN;
+	value multiplier = Complex(fcos(arg2), fsin(arg2));
+	
+	object it satisfies {Complex+} {
+		shared actual Iterator<Complex> iterator() {
+			object it satisfies Iterator<Complex> {
+				variable value index = n;
+				variable value current = fromPolar(mag, arg);
+				shared actual Complex|Finished next() {
+					if (index == 0) { return finished; }
+					index--;
+					value res = current;
+					current *= multiplier;
+					return res;
+				}
+			}
+			return it;
+		}
+	}
+	return it;
 }
 
 "Sesquilinear dot product `z . w = z* w`"
