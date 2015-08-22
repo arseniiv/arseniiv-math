@@ -4,9 +4,8 @@ import ceylon.math.float {
 	atan2,
 	hypot
 }
-import com.arseniiv.math {
-	signChar,
-	tau
+import com.arseniiv.math.common {
+	signChar
 }
 
 "A complex number."

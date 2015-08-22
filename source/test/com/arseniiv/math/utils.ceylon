@@ -1,6 +1,5 @@
 import ceylon.math.float {
-	random,
-	pi
+	random
 }
 import java.lang {
 	JDouble = Double
@@ -8,6 +7,7 @@ import java.lang {
 import ceylon.test {
 	equalsCompare
 }
+import com.arseniiv.math { tau }
 
 "Machine epsilon for [[Float]]."
 shared Float epsilon = 2.22e-16;
@@ -49,5 +49,8 @@ shared Boolean floatsBy(Boolean(Float, Float) f)(Anything x, Anything y) {
 shared Boolean(Anything, Anything) floatNearlyEquals =
 		floatsBy(nearlyEquals(1.0 * epsilon));
 
-shared Float randomAngle() => random() * 2.0 * pi;
+shared Float randomAngle() => random() * tau;
 
+"Returns random integer in range `0:valueCount`."
+shared Integer randomInteger(Integer valueCount) =>
+		(random() * valueCount).integer;
