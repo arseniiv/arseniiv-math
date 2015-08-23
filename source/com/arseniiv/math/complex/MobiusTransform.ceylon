@@ -1,17 +1,17 @@
-"Möbius transform is an invertible transform of
+"Möbius transformation is an invertible transformation of
  a [[complex number|Complex]] `z` to
  
      (a z + b) / (c z + d)
  
  where all `a`, `b`, `c`, `d` are complex, and `a d != b c`,
- because in the latter case a transform has no inverse."
+ because in the latter case a transformation has no inverse."
 shared class MobiusTransform(Complex a, Complex b, Complex c, Complex d)
 		satisfies Summable<MobiusTransform>
 		& Invertible<MobiusTransform> {
 	"Transform should be invertible."
 	assert(a * d != b * c);
 	
-	"Composition of Möbius transforms, satisfying
+	"Composition of Möbius transformations, satisfying
 	 
 	     (g + f).on(z) == g.on(f.on(z)) == compose(g.on, f.on)(z)
 	 
@@ -24,27 +24,27 @@ shared class MobiusTransform(Complex a, Complex b, Complex c, Complex d)
 				d = c * other.b + d * other.d;
 			};
 	
-	"An inverse of this transform."
+	"An inverse of this transformation."
 	shared actual MobiusTransform negated =>
 			MobiusTransform(d, -b, -c, a);
 	
-	"Action of this transform on a given complex number `z`
-	 which can be also [[complexInfinity]]."
+	"Action of this transformation on a given complex number `z`
+	 which can also be [[complexInfinity]]."
 	shared Complex on(Complex z) =>
 			z.finite then (a * z + b) / (c * z + d) else a / c;
 	
 	"Returns an inverse of determinant of a matrix [[a, b], [c, d]]."
 	Complex overDet => (a * d - b * c).inverse;
 	
-	"Returns the same transform as this, but with normalized
+	"Returns the same transformation as this, but with normalized
 	 coefficients, so it can be more accurate in some cases."
 	MobiusTransform normalized {
 		value sd = root(overDet, 2);
 		return MobiusTransform(a * sd, b * sd, c * sd, d * sd);
 	}
 	
-	"Trace of a transform.
-	 Transforms having the same trace behave similarly."
+	"(Half-)trace of a transformation.
+	 Transformations having the same trace behave similarly."
 	shared Complex trace => 0.5 ** (a + d) * overDet;
 	
 	"Pole is a pre-image of [[complexInfinity]]."
@@ -53,10 +53,11 @@ shared class MobiusTransform(Complex a, Complex b, Complex c, Complex d)
 	"Inverse pole is an image of [[complexInfinity]]."
 	shared Complex inversePole => a / c;
 	
-	"Fixed points of a transform.
+	"Fixed points of a transformation.
 	 
-	 If a transform is identity, any point is fixed, and here we return `[]`.
-	 Otherwise, two fixed points or one (double) fixed point exists."
+	 If a transformation is identity, any point is fixed,
+	 and here we return `[]`.
+	 Otherwise, two fixed points (or one double fixed point) exist."
 	shared []|Complex[2] fixedPoints {
 		value amd = a - d;
 		if (c == zero) {
@@ -72,7 +73,7 @@ shared class MobiusTransform(Complex a, Complex b, Complex c, Complex d)
 	
 }
 
-"Make Möbius transform specifying pre-images of `0`, `1` and `∞`."
+"Make Möbius transformation specifying pre-images of `0`, `1` and `∞`."
 shared MobiusTransform makeMobiusByPoints(Complex toZero, Complex toUnit,
 		Complex toInfinity) {
 	"Pre-images of a transform cannot coincide."
