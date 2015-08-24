@@ -6,6 +6,6 @@
  after release of the latter. ;)"
 license("http://opensource.org/licenses/MIT")
 by("arseniiv")
-module com.arseniiv.math "0.1.0" {
-	import ceylon.math "1.1.0";
+native("jvm") module com.arseniiv.math "0.1.0" {
+	native("jvm") import ceylon.math "1.1.1";
 }
