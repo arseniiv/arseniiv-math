@@ -4,8 +4,8 @@ import ceylon.math.float {
 import ceylon.test {
 	equalsCompare
 }
-import test.com.arseniiv.math { ... }
-import com.arseniiv.math.complex { ... }
+import test.info.arseniiv.math { ... }
+import info.arseniiv.math.complex { ... }
 
 "Comparison of [[Complex]]es componentwise by `f`
  bootstrapping to [[equalsCompare]] for totality."

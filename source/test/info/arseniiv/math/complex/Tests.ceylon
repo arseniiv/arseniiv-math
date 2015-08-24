@@ -3,8 +3,8 @@ import ceylon.test {
 	test,
 	assertEquals
 }
-import com.arseniiv.math.complex { ... }
-import test.com.arseniiv.math { ... }
+import info.arseniiv.math.complex { ... }
+import test.info.arseniiv.math { ... }
 
 shared class Tests() {
 	value zero = Complex();

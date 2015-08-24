@@ -7,7 +7,7 @@ import java.lang {
 import ceylon.test {
 	equalsCompare
 }
-import com.arseniiv.math { tau }
+import info.arseniiv.math { tau }
 
 "Machine epsilon for [[Float]]."
 shared Float epsilon = 2.22e-16;

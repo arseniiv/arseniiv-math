@@ -4,7 +4,7 @@ import ceylon.math.float {
 	atan2,
 	hypot
 }
-import com.arseniiv.math.common {
+import info.arseniiv.math.common {
 	signChar
 }
 

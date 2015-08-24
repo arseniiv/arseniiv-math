@@ -4,8 +4,8 @@ import ceylon.math.float {
 import ceylon.test {
 	equalsCompare
 }
-import test.com.arseniiv.math { ... }
-import com.arseniiv.math.quaternion { ... }
+import test.info.arseniiv.math { ... }
+import info.arseniiv.math.quaternion { ... }
 
 "Comparison of [[Quaternion]]s componentwise by `f`
  bootstrapping to [[equalsCompare]] for totality."

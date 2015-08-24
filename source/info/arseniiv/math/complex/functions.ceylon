@@ -6,7 +6,7 @@ import ceylon.math.float {
 	fsinh = sinh,
 	flog = log
 }
-import com.arseniiv.math {
+import info.arseniiv.math {
 	tau
 }
 

@@ -4,7 +4,7 @@ import ceylon.math.float {
 	sin,
 	atan2
 }
-import com.arseniiv.math.common {
+import info.arseniiv.math.common {
 	signChar
 }
 
