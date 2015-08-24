@@ -1,14 +1,20 @@
-import ceylon.math.float { random }
+import ceylon.math.float {
+	random
+}
 import ceylon.test {
 	test,
 	assertEquals
 }
-import info.arseniiv.math.complex { ... }
-import test.info.arseniiv.math { ... }
+
+import info.arseniiv.math.complex {
+	...
+}
+
+import test.info.arseniiv.math {
+	...
+}
 
 shared class Tests() {
-	value zero = Complex();
-	value unit = Complex(1.0);
 	value a = randomComplex();
 	value b = randomComplex();
 	value c = randomComplex();
@@ -20,27 +26,27 @@ shared class Tests() {
 		assertEquals((a + b) + c, a + (b + c),
 			"`plus` associativity should hold",
 			complexNearlyEquals);
-		assertEquals(a + zero, a,
+		assertEquals(a + Complex.zero, a,
 			"`Complex(0)` should be right neutral to `plus`");
-		assertEquals(zero + a, a,
+		assertEquals(Complex.zero + a, a,
 			"`Complex(0)` should be left neutral to `plus`");
 	}
 	
 	test
 	shared void invertibleTests() {
 		value na = a.negated;
-		assertEquals(a + na, zero, "`negated` should work as expected");
+		assertEquals(a + na, Complex.zero, "`negated` should work as expected");
 		assertEquals(b - a, b + na, "`minus` should work as expected");
 	}
 	
 	test
 	shared void numericTests() {
 		value ia = a.inverse;
-		assertEquals(a * unit, a,
+		assertEquals(a * Complex.unit, a,
 			"`Complex(1)` should be left neutral to `times`");
-		assertEquals(a * unit, a,
+		assertEquals(a * Complex.unit, a,
 			"`Complex(1)` should be right neutral to `times`");
-		assertEquals(a * ia, unit,
+		assertEquals(a * ia, Complex.unit,
 			"`inverse` should work as expected",
 			complexNearlyEquals);
 		assertEquals(a * (b + c), a * b + a * c,
@@ -76,7 +82,7 @@ shared class Tests() {
 	
 	test
 	shared void exponentiableTests() {
-		assertEquals(a ^ 0.0, unit,
+		assertEquals(a ^ 0.0, Complex.unit,
 			"`power` with exponent of 0 should work as expected",
 			complexNearlyEquals);
 		assertEquals(a ^ 1.0, a,
@@ -128,7 +134,7 @@ shared class Tests() {
 	
 	test
 	shared void expLogTests() {
-		assertEquals(exp(zero), unit, "`exp` of 0 should work as expected",
+		assertEquals(exp(Complex.zero), Complex.unit, "`exp` of 0 should work as expected",
 			complexNearlyEquals);
 		assertEquals(exp(log(a)), a, "`exp` should be left inverse of `log`",
 			complexNearlyEquals);

@@ -1,26 +1,20 @@
 import ceylon.math.float {
-	fexp = exp,
-	fcos = cos,
-	fsin = sin,
-	fcosh = cosh,
-	fsinh = sinh,
-	flog = log
+	fexp=exp,
+	fcos=cos,
+	fsin=sin,
+	fcosh=cosh,
+	fsinh=sinh,
+	flog=log
 }
+
 import info.arseniiv.math {
 	tau
 }
 
-"Make complex number given its polar form."
-by("arseniiv")
-shared Complex fromPolar(Float magnitude, Float argument) =>
-		Complex {
-	re = magnitude * fcos(argument);
-	im = magnitude * fsin(argument);
-};
-
 "Exponent of a complex number."
 by("arseniiv")
-shared Complex exp(Complex z) => fromPolar(fexp(z.re), z.im);
+shared Complex exp(Complex z) =>
+		Complex.fromPolar(fexp(z.re), z.im);
 
 "Logarithm of a complex number.
  
@@ -101,7 +95,7 @@ shared Complex root(Complex z, Integer n, Integer index = 0) {
 	value overN = 1.0 / n;
 	value mag = z.magnitude^overN;
 	value arg = (z.argument + tau * index) * overN;
-	return fromPolar(mag, arg);
+	return Complex.fromPolar(mag, arg);
 }
 
 "All solutions of an equation `w^n == z`."
@@ -113,25 +107,22 @@ shared {Complex+} roots(Complex z, Integer n) {
 	value mag = z.magnitude^overN;
 	value arg = z.argument * overN;
 	value arg2 = tau * overN;
-	value multiplier = Complex(fcos(arg2), fsin(arg2));
+	value multiplier = Complex.fromPolarUnit(arg2);
 	
-	object it satisfies {Complex+} {
-		shared actual Iterator<Complex> iterator() {
-			object it satisfies Iterator<Complex> {
-				variable value index = n;
-				variable value current = fromPolar(mag, arg);
-				shared actual Complex|Finished next() {
-					if (index == 0) { return finished; }
-					index--;
-					value res = current;
-					current *= multiplier;
-					return res;
-				}
-			}
-			return it;
-		}
-	}
-	return it;
+	return object satisfies {Complex+} {
+		shared actual Iterator<Complex> iterator() =>
+				object satisfies Iterator<Complex> {
+					variable value index = n;
+					variable value current = Complex.fromPolar(mag, arg);
+					shared actual Complex|Finished next() {
+						if (index == 0) { return finished; }
+						index--;
+						value res = current;
+						current *= multiplier;
+						return res;
+					}
+				};
+	};
 }
 
 "Sesquilinear dot product `z . w = z* w`"

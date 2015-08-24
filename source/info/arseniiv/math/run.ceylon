@@ -1,16 +1,11 @@
 import info.arseniiv.math.complex {
-	complexInfinity,
-	Complex
-}
-
-import info.arseniiv.math.complex {
 	...
 }
 
 "Run the module `info.arseniiv.math`."
 void run() {
-	value a = complexInfinity;
-	value b = Complex(0.0);
+	value a = Complex.infinity;
+	value b = Complex.zero;
 	print("a = ``a``");
 	print("a^-1 = ``a.inverse``");
 	print("a.arg = ``a.argument``");

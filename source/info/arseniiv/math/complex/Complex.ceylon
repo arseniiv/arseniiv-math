@@ -1,9 +1,13 @@
+import ceylon.language {
+	finfinity=infinity
+}
 import ceylon.math.float {
 	cos,
 	sin,
 	atan2,
 	hypot
 }
+
 import info.arseniiv.math.common {
 	signChar
 }
@@ -14,7 +18,7 @@ import info.arseniiv.math.common {
  
      value z = Complex(0.0, 1.0); // imaginary uint
      
- and also a unique _infinite_ by using [[complexInfinity]].
+ and also a unique _infinite_ by using [[Complex.infinity]].
  It’s discouraged calling `Complex(re, im)` with `im` not being
  [[finite|Float.finite]] number. Invocations with not a finite `re`
  result in the following:
@@ -26,8 +30,8 @@ import info.arseniiv.math.common {
  - `0.inverse == complexInfinity`
  - `complexInfinity.inverse == 0`"
 by("arseniiv")
-shared class Complex(re = 0.0, im = 0.0)
-		extends Object()
+shared class Complex
+		extends Object
 		satisfies Exponentiable<Complex, Float>
 		& Scalable<Float, Complex> {
 	
@@ -36,6 +40,46 @@ shared class Complex(re = 0.0, im = 0.0)
 	
 	"Imaginary part."
 	shared Float im;
+	
+	"Returns complex number given its real and imaginary parts."
+	shared new (Float re, Float im)
+			extends Object() {
+		this.re = re;
+		this.im = im;
+	}
+	
+	"Returns complex number given its polar form:
+	 [[magnitude|Complex.magnitude]] and [[argument|Complex.argument]].
+	 
+	 Note you can give any value of argument—not only principal one
+	 that lies in `[-π; π]` range."
+	shared new fromPolar(Float magnitude, Float argument)
+			extends Complex(
+					magnitude * cos(argument),
+					magnitude * sin(argument)) {}
+	
+	"Returns unit complex number with given [[argument|Complex.argument]].
+	 Its magnitude is 1.
+	 
+	 Note you can give any value of argument—not only principal one
+	 that lies in `[-π; π]` range."
+	shared new fromPolarUnit(Float argument)
+			extends Complex(cos(argument), sin(argument)) {}
+	
+	abstract new fromReal(Float x)
+			extends Complex(x, 0.0) {}
+	
+	"A zero complex number."
+	shared new zero extends fromReal(0.0) {}
+	
+	"A unit complex number."
+	shared new unit extends fromReal(1.0) {}
+	
+	"An imaginary unit."
+	shared new i extends Complex(0.0, 1.0) {}
+	
+	"An infinite complex number."
+	shared new infinity extends fromReal(finfinity) {}
 	
 	plus(Complex other) =>
 			Complex(re + other.re, im + other.im);
@@ -145,21 +189,13 @@ shared class Complex(re = 0.0, im = 0.0)
 			finite then atan2(im, re) else +0.0/+0.0;
 	
 	"Determines whether this value is finite. Produces `false` for
-	 [[complexInfinity]] and undefined values."
+	 [[Complex.infinity]] and undefined values."
 	shared Boolean finite => re.finite;
 	
-	"Determines whether this value is [[complexInfinity]]."
+	"Determines whether this value is [[Complex.infinity]]."
 	shared Boolean infinite => re.infinite;
 	
 	"Determines whether this value is undefined."
 	shared Boolean undefined => re.undefined;
 }
 
-"A zero [[Complex]]."
-Complex zero = Complex();
-
-"An unit [[Complex]]."
-Complex unit = Complex(1.0);
-
-"An infinite [[Complex]]."
-shared Complex complexInfinity = Complex(infinity);

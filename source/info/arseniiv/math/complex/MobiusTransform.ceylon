@@ -29,7 +29,7 @@ shared class MobiusTransform(Complex a, Complex b, Complex c, Complex d)
 			MobiusTransform(d, -b, -c, a);
 	
 	"Action of this transformation on a given complex number `z`
-	 which can also be [[complexInfinity]]."
+	 which can also be [[Complex.infinity]]."
 	shared Complex on(Complex z) =>
 			z.finite then (a * z + b) / (c * z + d) else a / c;
 	
@@ -47,10 +47,10 @@ shared class MobiusTransform(Complex a, Complex b, Complex c, Complex d)
 	 Transformations having the same trace behave similarly."
 	shared Complex trace => 0.5 ** (a + d) * overDet;
 	
-	"Pole is a pre-image of [[complexInfinity]]."
+	"Pole is a pre-image of [[Complex.infinity]]."
 	shared Complex pole => -d / c;
 	
-	"Inverse pole is an image of [[complexInfinity]]."
+	"Inverse pole is an image of [[Complex.infinity]]."
 	shared Complex inversePole => a / c;
 	
 	"Fixed points of a transformation.
@@ -60,8 +60,8 @@ shared class MobiusTransform(Complex a, Complex b, Complex c, Complex d)
 	 Otherwise, two fixed points (or one double fixed point) exist."
 	shared []|Complex[2] fixedPoints {
 		value amd = a - d;
-		if (c == zero) {
-			return [-b / amd, complexInfinity];
+		if (c == Complex.zero) {
+			return [-b / amd, Complex.infinity];
 		}
 		else {
 			// naïve solution of a quadratic equation
@@ -80,25 +80,25 @@ shared MobiusTransform makeMobiusByPoints(Complex toZero, Complex toUnit,
 	assert(toZero != toUnit, toZero != toInfinity);
 	if (toZero.infinite) {
 		return MobiusTransform {
-			a = zero;
+			a = Complex.zero;
 			b = toInfinity - toUnit;
-			c = -unit;
+			c = -Complex.unit;
 			d = toInfinity;
 		};
 	}
 	if (toUnit.infinite) {
 		return MobiusTransform {
-			a = unit;
+			a = Complex.unit;
 			b = -toZero;
-			c = unit;
+			c = Complex.unit;
 			d = -toInfinity;
 		};		
 	}
 	if (toInfinity.infinite) {
 		return MobiusTransform {
-			a = -unit;
+			a = -Complex.unit;
 			b = toZero;
-			c = zero;
+			c = Complex.zero;
 			d = toZero - toUnit;
 		};
 	}
