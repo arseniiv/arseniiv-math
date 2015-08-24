@@ -1,48 +1,54 @@
-import ceylon.math.float { random }
+import ceylon.math.float {
+	random
+}
 import ceylon.test {
 	test,
 	assertEquals
 }
-import info.arseniiv.math.quaternion { ... }
-import test.info.arseniiv.math { ... }
+
+import info.arseniiv.math.quaternion {
+	...
+}
+
+import test.info.arseniiv.math {
+	...
+}
 
 shared class Tests() {
-	value zero = Quaternion();
-	value unit = Quaternion(1.0);
 	value a = randomQuaternion();
 	value b = randomQuaternion();
 	value c = randomQuaternion();
 	Float x = random() * 10;
 	Float y = random() * 10;
-	value ra = makeRotor(a.vector.normalized, randomAngle());
-	value rb = makeRotor(b.vector.normalized, randomAngle());
+	value ra = Quaternion.rotor(a.vec.normalized, randomAngle());
+	value rb = Quaternion.rotor(b.vec.normalized, randomAngle());
 	
 	test
 	shared void summableTests() {
 		assertEquals((a + b) + c, a + (b + c),
 				"`plus` associativity should hold",
 				quaternionNearlyEquals);
-		assertEquals(a + zero, a,
+		assertEquals(a + Quaternion.zero, a,
 				"`Quaternion(0)` should be right neutral to `plus`");
-		assertEquals(zero + a, a,
+		assertEquals(Quaternion.zero + a, a,
 				"`Quaternion(0)` should be left neutral to `plus`");
 	}
 	
 	test
 	shared void invertibleTests() {
 		value na = a.negated;
-		assertEquals(a + na, zero, "`negated` should work as expected");
+		assertEquals(a + na, Quaternion.zero, "`negated` should work as expected");
 		assertEquals(b - a, b + na, "`minus` should work as expected");
 	}
 	
 	test
 	shared void numericTests() {
 		value ia = a.inverse;
-		assertEquals(a * unit, a,
+		assertEquals(a * Quaternion.unit, a,
 				"`Quaternion(1)` should be left neutral to `times`");
-		assertEquals(a * unit, a,
+		assertEquals(a * Quaternion.unit, a,
 				"`Quaternion(1)` should be right neutral to `times`");
-		assertEquals(a * ia, unit,
+		assertEquals(a * ia, Quaternion.unit,
 				"`inverse` should work as expected",
 				quaternionNearlyEquals);
 		assertEquals(a * (b + c), a * b + a * c,
@@ -76,7 +82,7 @@ shared class Tests() {
 	
 	test
 	shared void exponentiableTests() {
-		assertEquals(a ^ 0.0, unit,
+		assertEquals(a ^ 0.0, Quaternion.unit,
 				"`power` with exponent of 0 should work as expected",
 				quaternionNearlyEquals);
 		assertEquals(a ^ 1.0, a,
@@ -129,7 +135,7 @@ shared class Tests() {
 
 	test
 	shared void expLogTests() {
-		assertEquals(exp(zero), unit, "`exp` of 0 should work as expected",
+		assertEquals(exp(Quaternion.zero), Quaternion.unit, "`exp` of 0 should work as expected",
 			quaternionNearlyEquals);
 		assertEquals(exp(log(a)), a, "`exp` should be left inverse of `log`",
 			quaternionNearlyEquals);

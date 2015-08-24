@@ -42,7 +42,7 @@ shared class Complex
 	shared Float im;
 	
 	"Returns complex number given its real and imaginary parts."
-	shared new (Float re, Float im)
+	shared new (Float re, Float im = 0.0)
 			extends Object() {
 		this.re = re;
 		this.im = im;
@@ -66,20 +66,17 @@ shared class Complex
 	shared new fromPolarUnit(Float argument)
 			extends Complex(cos(argument), sin(argument)) {}
 	
-	abstract new fromReal(Float x)
-			extends Complex(x, 0.0) {}
-	
 	"A zero complex number."
-	shared new zero extends fromReal(0.0) {}
+	shared new zero extends Complex(0.0) {}
 	
 	"A unit complex number."
-	shared new unit extends fromReal(1.0) {}
+	shared new unit extends Complex(1.0) {}
 	
-	"An imaginary unit."
+	"An imaginary unit _i_."
 	shared new i extends Complex(0.0, 1.0) {}
 	
 	"An infinite complex number."
-	shared new infinity extends fromReal(finfinity) {}
+	shared new infinity extends Complex(finfinity) {}
 	
 	plus(Complex other) =>
 			Complex(re + other.re, im + other.im);

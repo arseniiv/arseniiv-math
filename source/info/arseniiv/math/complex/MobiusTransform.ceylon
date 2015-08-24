@@ -1,13 +1,70 @@
-"Möbius transformation is an invertible transformation of
- a [[complex number|Complex]] `z` to
+"[[Möbius transformation|https://en.wikipedia.org/wiki/M%C3%B6bius_transformation]]
+ is an invertible transformation of a [[complex number|Complex]] `z` to
  
      (a z + b) / (c z + d)
  
  where all `a`, `b`, `c`, `d` are complex, and `a d != b c`,
  because in the latter case a transformation has no inverse."
-shared class MobiusTransform(Complex a, Complex b, Complex c, Complex d)
+shared class MobiusTransform
 		satisfies Summable<MobiusTransform>
 		& Invertible<MobiusTransform> {
+	
+	"A parameter of transformation."
+	shared Complex a;
+	
+	"A parameter of transformation."
+	shared Complex b;
+	
+	"A parameter of transformation."
+	shared Complex c;
+	
+	"A parameter of transformation."
+	shared Complex d;
+	
+	"Get Möbius transformation given its parameters.
+	 
+	 Parameters are defined up to multiplication by number—for example,
+	 `MobiusTransform(a, b, c, d)` has the same effects as
+	 `MobiusTransform(3*a, 3*b, 3*c, 3*d)`."
+	shared new (Complex a, Complex b, Complex c, Complex d) {
+		this.a = a;
+		this.b = b;
+		this.c = c;
+		this.d = d;
+	}
+	
+	"Make Möbius transformation specifying pre-images of `0`, `1` and `∞`."
+	shared new byPreimages(Complex toZero, Complex toUnit,
+		Complex toInfinity) {
+		"Pre-images of a transform cannot coincide."
+		assert(toZero != toUnit, toZero != toInfinity);
+		if (toZero.infinite) {
+			a = Complex.zero;
+			b = toInfinity - toUnit;
+			c = -Complex.unit;
+			d = toInfinity;
+		}
+		else if (toUnit.infinite) {
+			a = Complex.unit;
+			b = -toZero;
+			c = Complex.unit;
+			d = -toInfinity;
+		}
+		else if (toInfinity.infinite) {
+			a = -Complex.unit;
+			b = toZero;
+			c = Complex.zero;
+			d = toZero - toUnit;
+		}
+		else {
+			// and, if all pre-images are finite, a general form is
+			a = toUnit - toInfinity;
+			b = -toZero * (toUnit - toInfinity);
+			c = toUnit - toZero;
+			d = -toInfinity * (toUnit - toZero);
+		}
+	}
+	
 	"Transform should be invertible."
 	assert(a * d != b * c);
 	
@@ -71,43 +128,5 @@ shared class MobiusTransform(Complex a, Complex b, Complex c, Complex d)
 		}
 	}
 	
-}
-
-"Make Möbius transformation specifying pre-images of `0`, `1` and `∞`."
-shared MobiusTransform makeMobiusByPoints(Complex toZero, Complex toUnit,
-		Complex toInfinity) {
-	"Pre-images of a transform cannot coincide."
-	assert(toZero != toUnit, toZero != toInfinity);
-	if (toZero.infinite) {
-		return MobiusTransform {
-			a = Complex.zero;
-			b = toInfinity - toUnit;
-			c = -Complex.unit;
-			d = toInfinity;
-		};
-	}
-	if (toUnit.infinite) {
-		return MobiusTransform {
-			a = Complex.unit;
-			b = -toZero;
-			c = Complex.unit;
-			d = -toInfinity;
-		};		
-	}
-	if (toInfinity.infinite) {
-		return MobiusTransform {
-			a = -Complex.unit;
-			b = toZero;
-			c = Complex.zero;
-			d = toZero - toUnit;
-		};
-	}
-	// and, if all pre-images are finite, a general form is
-	return MobiusTransform {
-		a = toUnit - toInfinity;
-		b = -toZero * (toUnit - toInfinity);
-		c = toUnit - toZero;
-		d = -toInfinity * (toUnit - toZero);
-	};
 }
 

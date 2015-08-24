@@ -2,7 +2,7 @@
  [[complex numbers|https://en.wikipedia.org/wiki/Complex_number]]
  and [[quaternions|http://en.wikipedia.org/Quaternion]].
  
- The code will use new features of Ceylon 1.2
+ The code will use much more of Ceylon 1.2 new features
  after release of the latter. ;)"
 license("http://opensource.org/licenses/MIT")
 by("arseniiv")

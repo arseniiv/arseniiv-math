@@ -4,14 +4,15 @@ import ceylon.math.float {
 	sin,
 	atan2
 }
+
 import info.arseniiv.math.common {
 	signChar
 }
 
 "A quaternion."
 by("arseniiv")
-shared class Quaternion(re = 0.0, x = 0.0, y = 0.0, z = 0.0)
-		extends Object()
+shared class Quaternion
+		extends Object
 		satisfies Exponentiable<Quaternion, Float>
 		& Scalable<Float, Quaternion> {
 	
@@ -26,6 +27,56 @@ shared class Quaternion(re = 0.0, x = 0.0, y = 0.0, z = 0.0)
 	
 	"Third component of a vector part."
 	shared Float z;
+	
+	"Get a quaternion with all components given."
+	shared new (Float re, Float x = 0.0, Float y = 0.0, Float z = 0.0)
+			extends Object() {
+		this.re = re;
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
+	
+	"Get (pure) vector quaternion with given coordinates.
+	 
+	 Real part of the result is zero."
+	shared new vector(Float x, Float y, Float z)
+			extends Quaternion(0.0, x, y, z) {}
+	
+	"Get rotor quaternion by axis and angle of rotation.
+	 
+	 Rotation by `r1` followed by rotation by `r2` is equal to
+	 rotation by rotor `r2 * r1`."
+	see(`function Quaternion.rotate`)
+	shared new rotor(axis, Float angle)
+			extends Object() {
+		"Axis of rotation, normalized vector quaternion."
+		Quaternion axis;
+		"Axis should be vector, thus having zero scalar part."
+		assert(axis.re == 0.0);
+		value vmag = 0.5 * angle;
+		value s = sin(vmag);
+		// construct exp(0.5 * angle ** axis);
+		re = cos(vmag);
+		x = s * axis.x;
+		y = s * axis.y;
+		z = s * axis.z;
+	}
+	
+	"A zero quaternion."
+	shared new zero extends Quaternion(0.0) {}
+	
+	"A unit quaternion."
+	shared new unit extends Quaternion(1.0) {}
+	
+	"Pure vector quaternion _i_."
+	shared new i extends vector(1.0, 0.0, 0.0) {}
+	
+	"Pure vector quaternion _j_."
+	shared new j extends vector(0.0, 1.0, 0.0) {}
+	
+	"Pure vector quaternion _k_."
+	shared new k extends vector(0.0, 0.0, 1.0) {}
 	
 	plus(Quaternion other) =>
 			Quaternion(re + other.re, x + other.x, y + other.y, z + other.z);
@@ -66,7 +117,7 @@ shared class Quaternion(re = 0.0, x = 0.0, y = 0.0, z = 0.0)
 	
 	see(`function integerPower`)
 	shared actual Quaternion power(Float other) {
-		value v = vector;
+		value v = vec;
 		value angle = other * atan2(v.magnitude, re);
 		return magnitude^other **
 				(Quaternion(cos(angle)) + sin(angle) ** v.normalized);
@@ -106,7 +157,8 @@ shared class Quaternion(re = 0.0, x = 0.0, y = 0.0, z = 0.0)
 	hash => re.hash + x.hash + y.hash + z.hash;
 	
 	"Imaginary, or vector part."
-	shared Quaternion vector => Quaternion(0.0, x, y, z);
+	see(`function vector`)
+	shared Quaternion vec => Quaternion(0.0, x, y, z);
 	
 	"Inverse `q^(-1)` of this quaternion.
 	 
@@ -159,7 +211,7 @@ shared class Quaternion(re = 0.0, x = 0.0, y = 0.0, z = 0.0)
 	 
 	 Returns the same as `rotor * this * rotor.conjugate`
 	 with less computations."
-	see(`function makeRotor`)
+	see(`function Quaternion.rotor`)
 	shared Quaternion rotate(Quaternion rotor) {
 		value rre = rotor.re;
 		value rv = [rotor.x, rotor.y, rotor.z];
@@ -171,11 +223,6 @@ shared class Quaternion(re = 0.0, x = 0.0, y = 0.0, z = 0.0)
 	     q == magnitude ** exp(argument ** vector.normalized)
 	 
 	 of this quaternion."
-	shared Float argument => atan2(vector.magnitude, re);
+	shared Float argument => atan2(vec.magnitude, re);
 }
 
-"A zero [[Quaternion]]."
-Quaternion zero = Quaternion();
-
-"An unit [[Quaternion]]."
-Quaternion unit = Quaternion(1.0);
