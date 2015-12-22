@@ -1,20 +1,28 @@
-import ceylon.math.float {
-	random
-}
-import java.lang {
-	JDouble = Double
-}
 import ceylon.test {
 	equalsCompare
 }
-import info.arseniiv.math { tau }
 
-"Machine epsilon for [[Float]]."
-shared Float epsilon = 2.22e-16;
+import com.vasileff.ceylon.xmath.float {
+	random
+}
 
-shared Float minNormalFloat = JDouble.\iMIN_NORMAL;
+import info.arseniiv.math {
+	tau
+}
 
-shared Float maxFloat = JDouble.\iMAX_VALUE;
+import java.lang {
+	JDouble=Double
+}
+
+shared Float epsilon = runtime.epsilon;
+
+shared native Float minNormalFloat;
+
+shared native("jvm") Float minNormalFloat = JDouble.\iMIN_NORMAL;
+
+shared native("js") Float minNormalFloat = 2.22507385850720138e-308;
+
+shared Float maxFloat = runtime.maxFloatValue;
 
 "Returns true iff difference between `a` and `b` is more than given
  nonnegative relative calculation error."

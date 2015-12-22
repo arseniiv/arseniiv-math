@@ -88,11 +88,12 @@ shared class MobiusTransform
 	"Action of this transformation on a given complex number `z`
 	 which can also be [[Complex.infinity]]."
 	shared Complex on(Complex z) =>
-			z.finite then (a * z + b) / (c * z + d) else a / c;
+			if (z.finite) then (a * z + b) / (c * z + d) else a / c;
 	
 	"Returns an inverse of determinant of a matrix [[a, b], [c, d]]."
 	Complex overDet => (a * d - b * c).inverse;
 	
+	// can’t decide if it’s needed. So it’s unshared now
 	"Returns the same transformation as this, but with normalized
 	 coefficients, so it can be more accurate in some cases."
 	MobiusTransform normalized {

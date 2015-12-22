@@ -1,7 +1,8 @@
 import ceylon.language {
 	finfinity=infinity
 }
-import ceylon.math.float {
+
+import com.vasileff.ceylon.xmath.float {
 	cos,
 	sin,
 	atan2,
@@ -137,7 +138,7 @@ shared class Complex
 		return false;
 	}
 	
-	hash => re.hash + (re.finite then im.hash else 0);
+	hash => re.hash + (if (re.finite) then im.hash else 0);
 	
 	"Inverse `q^(-1)` of this complex number.
 	 
@@ -146,17 +147,19 @@ shared class Complex
 	 - `z^(-1)^(-1) == z`
 	 - `(z * w)^(-1) == z^(-1) * w^(-1)`"
 	shared Complex inverse =>
-			finite then 1.0/magnitudeSqr ** conjugate else zero;
+			if (finite) then 1.0/magnitudeSqr ** conjugate else zero;
 	
 	"The magnitude (absolute value) of this complex number.
 	 
 	 Absolute value of `a + bi` is `sqrt(a^2 + b^2)`."
+	aliased("abs", "norm")
 	shared Float magnitude => hypot(re, im);
 	
 	"The squared magnitude of this number."
 	shared Float magnitudeSqr => re^2 + im^2;
 	
 	"This number scaled so its magnitude equals 1, or 0 if it is zero."
+	aliased("sign")
 	shared Complex normalized {
 		value m = magnitude;
 		if (m == 0.0) { return zero; }
@@ -183,7 +186,7 @@ shared class Complex
 	 argument of values close to zero may be equal to `0` or `±π`
 	 according to cases listed on [[atan2]] behavior."
 	shared Float argument =>
-			finite then atan2(im, re) else +0.0/+0.0;
+			if (finite) then atan2(im, re) else +0.0/+0.0;
 	
 	"Determines whether this value is finite. Produces `false` for
 	 [[Complex.infinity]] and undefined values."

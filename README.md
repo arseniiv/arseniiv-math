@@ -5,7 +5,7 @@ Some mathematical stuff written in Ceylon.
 
 ## Import
 
-So far you can get this thing from here only. Clone this repo and compile, and export `module info.arseniiv.math "0.1.0"` somewhere. At the moment, this module contains three packages:
+So far you can get this thing from here only. Clone this repo and compile, and export `module info.arseniiv.math "0.1.1"` somewhere. At the moment, this module contains three packages:
 
 ### Common stuff in `info.arseniiv.math`
 
@@ -57,10 +57,14 @@ Function `slerp` returns ‘interpolator’ of type `Quaternion(Float)` which ca
 
 See also [Quaternions and spatial rotation](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation) in Wikipedia.
 
+## Version history
+
+### 0.1.1
+
+Now I’ve done version control the right way, and will never change master branch until another version is done.
+
+Also, now the thing is cross-platform and is using **jvasileff**’s [XMath module](https://github.com/jvasileff/ceylon-xmath). (If/as it will be merged in Ceylon language module, I’ll replace the import and up this module’s version number.)
+
 ## Known issues
 
-This all for now is only for JVM because of
-
-- Standard `ceylon.math` isn’t portable for the time being. AFAIK it’s going to be refactored very soon, so maybe we shouldn’t write JS implementation _straight here_ :)
-
-- I used some IEEE float64 limit values in a test code. They all could easily encoded as raw constants because of bit-to-bit exactness isn’t necessary for current usage. For now, these are still imported from `java.base`.
+Currently not aware of. Write me if you see one. Feature suggestions are welcome too!

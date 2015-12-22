@@ -1,4 +1,4 @@
-import ceylon.math.float {
+import com.vasileff.ceylon.xmath.float {
 	fexp=exp,
 	fcos=cos,
 	fsin=sin,

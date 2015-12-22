@@ -1,11 +1,18 @@
-import ceylon.math.float {
-	random
-}
 import ceylon.test {
 	equalsCompare
 }
-import test.info.arseniiv.math { ... }
-import info.arseniiv.math.quaternion { ... }
+
+import com.vasileff.ceylon.xmath.float {
+	random
+}
+
+import info.arseniiv.math.quaternion {
+	...
+}
+
+import test.info.arseniiv.math {
+	...
+}
 
 "Comparison of [[Quaternion]]s componentwise by `f`
  bootstrapping to [[equalsCompare]] for totality."

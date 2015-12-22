@@ -1,9 +1,10 @@
-import ceylon.math.float {
-	random
-}
 import ceylon.test {
 	test,
 	assertEquals
+}
+
+import com.vasileff.ceylon.xmath.float {
+	random
 }
 
 import info.arseniiv.math.quaternion {

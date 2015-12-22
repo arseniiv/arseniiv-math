@@ -1,4 +1,4 @@
-import ceylon.math.float {
+import com.vasileff.ceylon.xmath.float {
 	sqrt,
 	cos,
 	sin,
@@ -158,6 +158,7 @@ shared class Quaternion
 	
 	"Imaginary, or vector part."
 	see(`function vector`)
+	aliased("im")
 	shared Quaternion vec => Quaternion(0.0, x, y, z);
 	
 	"Inverse `q^(-1)` of this quaternion.
@@ -172,6 +173,7 @@ shared class Quaternion
 	 
 	 Absolute value of `a + bi + cj + dk` is
 	 `sqrt(a^2 + b^2 + c^2 + d^2)`."
+	aliased("abs", "norm")
 	shared Float magnitude {
 		// => sqrt(re^2 + x^2 + y^2 + z^2);
 		// similarly to `hypot`, calculate
@@ -196,6 +198,7 @@ shared class Quaternion
 	shared Float magnitudeSqr => sum(sort([re^2, x^2, y^2, z^2]).follow(0.0));
 	
 	"Quaternion scaled so its magnitude equals 1, or 0 if it is zero."
+	aliased("sign")
 	shared Quaternion normalized {
 		value m = magnitude;
 		if (m == 0.0) { return zero; }

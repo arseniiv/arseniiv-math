@@ -1,11 +1,18 @@
-import ceylon.math.float {
-	random
-}
 import ceylon.test {
 	equalsCompare
 }
-import test.info.arseniiv.math { ... }
-import info.arseniiv.math.complex { ... }
+
+import com.vasileff.ceylon.xmath.float {
+	random
+}
+
+import info.arseniiv.math.complex {
+	...
+}
+
+import test.info.arseniiv.math {
+	...
+}
 
 "Comparison of [[Complex]]es componentwise by `f`
  bootstrapping to [[equalsCompare]] for totality."
