@@ -1,12 +1,8 @@
-import ceylon.test {
-	equalsCompare
-}
-
-import com.vasileff.ceylon.xmath.float {
+import ceylon.numeric.float {
 	random
 }
 
-import info.arseniiv.math {
+import name.arseniiv.math {
 	tau
 }
 
@@ -26,9 +22,10 @@ shared Float maxFloat = runtime.maxFloatValue;
 
 "Returns true iff difference between `a` and `b` is more than given
  nonnegative relative calculation error."
-shared Boolean nearlyEquals(Float relativeError = epsilon)
+shared Boolean nearlyEquals(Float relativeErrorInEpsilons = 1.0)
 		(Float a, Float b) {
 	// See http://floating-point-gui.de/errors/comparison/
+	value relativeError = relativeErrorInEpsilons * epsilon;
 	"Relative error value should be nonnegative."
 	assert(!relativeError.negative);
 	value am = a.magnitude;
@@ -44,19 +41,19 @@ shared Boolean nearlyEquals(Float relativeError = epsilon)
 	}
 }
 
-"Comparison of [[Float]]s
- bootstrapping to [[equalsCompare]] for totality."
+"Comparison of [[Float]]s using given function."
 shared Boolean floatsBy(Boolean(Float, Float) f)(Anything x, Anything y) {
 	if (is Float x, is Float y) {
 		return f(x, y);
 	}
-	else { return equalsCompare(x, y); }
+	else { return false; }
 }
 
 "Default [[Float]] near-equality comparison."
 shared Boolean(Anything, Anything) floatNearlyEquals =
 		floatsBy(nearlyEquals(1.0 * epsilon));
 
+"Returns random angle (value in radians)."
 shared Float randomAngle() => random() * tau;
 
 "Returns random integer in range `0:valueCount`."

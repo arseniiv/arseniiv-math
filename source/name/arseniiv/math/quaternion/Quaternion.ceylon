@@ -1,11 +1,11 @@
-import com.vasileff.ceylon.xmath.float {
+import ceylon.numeric.float {
 	sqrt,
 	cos,
 	sin,
 	atan2
 }
 
-import info.arseniiv.math.common {
+import name.arseniiv.math.common {
 	signChar
 }
 

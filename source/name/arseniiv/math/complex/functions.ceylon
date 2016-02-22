@@ -1,4 +1,4 @@
-import com.vasileff.ceylon.xmath.float {
+import ceylon.numeric.float {
 	fexp=exp,
 	fcos=cos,
 	fsin=sin,
@@ -7,7 +7,7 @@ import com.vasileff.ceylon.xmath.float {
 	flog=log
 }
 
-import info.arseniiv.math {
+import name.arseniiv.math {
 	tau
 }
 

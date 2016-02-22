@@ -1,4 +1,4 @@
-import info.arseniiv.math.complex {
+import name.arseniiv.math.complex {
 	...
 }
 

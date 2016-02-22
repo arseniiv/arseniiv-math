@@ -1,2 +1,2 @@
 "Package with declarations for internal use."
-package info.arseniiv.math.common;
+package name.arseniiv.math.common;

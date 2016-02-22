@@ -2,14 +2,14 @@ import ceylon.language {
 	finfinity=infinity
 }
 
-import com.vasileff.ceylon.xmath.float {
+import ceylon.numeric.float {
 	cos,
 	sin,
 	atan2,
 	hypot
 }
 
-import info.arseniiv.math.common {
+import name.arseniiv.math.common {
 	signChar
 }
 

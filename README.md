@@ -5,9 +5,9 @@ Some mathematical stuff written in Ceylon.
 
 ## Import
 
-So far you can get this thing from here only. Clone this repo and compile, and export `module info.arseniiv.math "0.1.1"` somewhere. At the moment, this module contains three packages:
+So far you can get this thing from here only. Clone this repo and compile, and export `module name.arseniiv.math "0.1.2"` somewhere. At the moment, this module contains three packages:
 
-### Common stuff in `info.arseniiv.math`
+### Common stuff in `name.arseniiv.math`
 
 Now there is just `tau` (τ = 2π) and value of 1° in radians you can use to sensibly denote degree angle values:
  
@@ -16,13 +16,13 @@ value rightAngle = 90 * degrees; // indeed 90°
 value hexagonAngle = 120 * degrees; // and so on…
 ```
 
-### Complex numbers in `info.arseniiv.math.complex`
+### Complex numbers in `name.arseniiv.math.complex`
 
 Operations with complex numbers including basic elementary functions: exp, log, sin, cos, sinh, cosh. (See Ceylon docs.)
 
 There is also several bits of code about [Möbius transformations](https://en.wikipedia.org/wiki/M%C3%B6bius_transformation) with correct handling of complex infinity.
 
-### Quaternions in `info.arseniiv.math.quaternion`
+### Quaternions in `name.arseniiv.math.quaternion`
 
 Here are the same elementary functions and basic arithmetic, and also functions to use quaternions in rotating 3D space.
 
@@ -58,6 +58,11 @@ Function `slerp` returns ‘interpolator’ of type `Quaternion(Float)` which ca
 See also [Quaternions and spatial rotation](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation) in Wikipedia.
 
 ## Version history
+
+### 0.1.2
+
+Hooray, Ceylon 1.2.1 delivers platform-independent math modules, so here are the changes!
+And I moved to another domain, too (my only excuse is this module is in beta :).
 
 ### 0.1.1
 

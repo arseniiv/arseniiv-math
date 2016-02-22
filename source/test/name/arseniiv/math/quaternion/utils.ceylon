@@ -1,21 +1,16 @@
-import ceylon.test {
-	equalsCompare
-}
-
-import com.vasileff.ceylon.xmath.float {
+import ceylon.numeric.float {
 	random
 }
 
-import info.arseniiv.math.quaternion {
+import name.arseniiv.math.quaternion {
 	...
 }
 
-import test.info.arseniiv.math {
+import test.name.arseniiv.math {
 	...
 }
 
-"Comparison of [[Quaternion]]s componentwise by `f`
- bootstrapping to [[equalsCompare]] for totality."
+"Comparison of [[Quaternion]]s componentwise by `f`."
 Boolean quaternionsBy(Boolean(Float, Float) f)(Anything q, Anything r) {
 	if (is Quaternion q, is Quaternion r) {
 		value rectApplied =
@@ -25,12 +20,12 @@ Boolean quaternionsBy(Boolean(Float, Float) f)(Anything q, Anything r) {
 				f((q - r).magnitude, 0.0) || f((q / r).magnitude, 1.0);
 		return distApplied;
 	}
-	else { return equalsCompare(q, r); }
+	else { return false; }
 }
 
 "Default [[Quaternion]] near-equality comparison."
 Boolean(Anything, Anything) quaternionNearlyEquals =
-		quaternionsBy(nearlyEquals(2.0 * epsilon));
+		quaternionsBy(nearlyEquals(2.0));
 
 Quaternion randomQuaternion() {
 	value q = Quaternion {

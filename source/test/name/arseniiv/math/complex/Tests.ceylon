@@ -3,15 +3,15 @@ import ceylon.test {
 	assertEquals
 }
 
-import com.vasileff.ceylon.xmath.float {
+import ceylon.numeric.float {
 	random
 }
 
-import info.arseniiv.math.complex {
+import name.arseniiv.math.complex {
 	...
 }
 
-import test.info.arseniiv.math {
+import test.name.arseniiv.math {
 	...
 }
 
