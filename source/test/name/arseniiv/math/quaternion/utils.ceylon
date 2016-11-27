@@ -6,8 +6,12 @@ import name.arseniiv.math.quaternion {
 	...
 }
 
-import test.name.arseniiv.math {
+import test.name.arseniiv.math.core {
 	...
+}
+import name.arseniiv.math.core {
+
+	nearlyEquals
 }
 
 "Comparison of [[Quaternion]]s componentwise by `f`."
@@ -36,4 +40,3 @@ Quaternion randomQuaternion() {
 	};
 	return random() * 10 ** q.normalized;
 }
-

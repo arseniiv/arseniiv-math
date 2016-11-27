@@ -111,4 +111,3 @@ shared Quaternion(Float) slerp(Quaternion rotor1, Quaternion rotor2) {
 	function interpolator(Float t) => rotor1 * quotient^t;
 	return interpolator;
 }
-

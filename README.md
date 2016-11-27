@@ -5,16 +5,18 @@ Some mathematical stuff written in Ceylon.
 
 ## Import
 
-So far you can get this thing from here only. Clone this repo and compile, and export `module name.arseniiv.math "0.1.2"` somewhere. At the moment, this module contains three packages:
+So far you can get this thing from here only. Clone this repo and compile, and export modules `name.arseniiv.math.core`, `name.arseniiv.math.complex`, `name.arseniiv.math.quaternion` somewhere. At the moment, there is three packages:
 
-### Common stuff in `name.arseniiv.math`
+### Common stuff in `name.arseniiv.math.core`
 
-Now there is just `tau` (τ = 2π) and value of 1° in radians you can use to sensibly denote degree angle values:
+There are `tau` (τ = 2π) and value of 1° in radians you can use to sensibly denote degree angle values:
  
 ```ceylon
 value rightAngle = 90 * degrees; // indeed 90°
 value hexagonAngle = 120 * degrees; // and so on…
 ```
+
+Also there is uniform pseudorandom generators for angles and integers, and quadratic equation solver, and near-equality comparer for `Float`s.
 
 ### Complex numbers in `name.arseniiv.math.complex`
 
@@ -59,6 +61,15 @@ See also [Quaternions and spatial rotation](https://en.wikipedia.org/wiki/Quater
 
 ## Version history
 
+### 0.1.3
+
+* Quadratic equation solver, pseudorandom generators and some minor stuff added.
+* Ceylon 1.3.1 delivers static attributes, and I’ve thought of adding some.
+* Promoted packages to modules—now you can take only what you need (plus `name.arseniiv.math.core`).
+* Renamed module `name.arseniiv.math` to `name.arseniiv.math.core`.
+* Added tests for and more proper handling of ```Complex.infinity```.
+* Fixed minor bugs in tests. :)
+
 ### 0.1.2
 
 Hooray, Ceylon 1.2.1 delivers platform-independent math modules, so here are the changes!
@@ -72,4 +83,4 @@ Also, now the thing is cross-platform and is using **jvasileff**’s [XMath modu
 
 ## Known issues
 
-Currently not aware of. Write me if you see one. Feature suggestions are welcome too!
+Currently not aware of. Write me if you see one. Feature suggestions are welcome too! So if you want these inverse trigonometric functions on complexes, please don’t be shy—I’m too lazy to demand them from myself.

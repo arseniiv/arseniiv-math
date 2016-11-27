@@ -5,7 +5,7 @@ import ceylon.numeric.float {
 	atan2
 }
 
-import name.arseniiv.math.common {
+import name.arseniiv.math.core.internal {
 	signChar
 }
 

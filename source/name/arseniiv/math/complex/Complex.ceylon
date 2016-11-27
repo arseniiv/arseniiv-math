@@ -9,7 +9,7 @@ import ceylon.numeric.float {
 	hypot
 }
 
-import name.arseniiv.math.common {
+import name.arseniiv.math.core.internal {
 	signChar
 }
 
@@ -23,13 +23,13 @@ import name.arseniiv.math.common {
  It’s discouraged calling `Complex(re, im)` with `im` not being
  [[finite|Float.finite]] number. Invocations with not a finite `re`
  result in the following:
- - `Complex(infinity, …) == Complex(-infinity, …) == complexInfinity`
+ - `Complex(infinity, …) == Complex(-infinity, …) == Complex.infinity`
  - `Complex(undefined, …)` are all considered undefined and
  not equal to anything other.
  
  Algebra on these values may fail. Guaranteed identities are:
- - `0.inverse == complexInfinity`
- - `complexInfinity.inverse == 0`"
+ - `0.inverse == Complex.infinity`
+ - `Complex.infinity.inverse == 0`"
 by("arseniiv")
 shared class Complex
 		extends Object
@@ -76,7 +76,7 @@ shared class Complex
 	"An imaginary unit _i_."
 	shared new i extends Complex(0.0, 1.0) {}
 	
-	"An infinite complex number."
+	"An infinite point ∞ of Riemann sphere. Sign is irrelevant."
 	shared new infinity extends Complex(finfinity) {}
 	
 	plus(Complex other) =>
@@ -125,9 +125,10 @@ shared class Complex
 	}
 	
 	shared actual String string {
-		return finite
-				then "``re`` ``signChar(im)`` ``im.magnitude``i "
-				else "complexInfinity";
+		//return finite
+		//		then "``re`` ``signChar(im)`` ``im.magnitude``i"
+		//		else "Complex.infinity";
+		return "``re`` ``signChar(im)`` ``im.magnitude``i";
 	}
 	
 	shared actual Boolean equals(Object that) {
@@ -147,18 +148,23 @@ shared class Complex
 	 - `z^(-1)^(-1) == z`
 	 - `(z * w)^(-1) == z^(-1) * w^(-1)`"
 	shared Complex inverse =>
-			if (finite) then 1.0/magnitudeSqr ** conjugate else zero;
+			if (finite)
+			then (if (re == 0.0 && im == 0.0)
+						then infinity
+						else 1.0/magnitudeSqr ** conjugate)
+			else zero;
 	
 	"The magnitude (absolute value) of this complex number.
 	 
 	 Absolute value of `a + bi` is `sqrt(a^2 + b^2)`."
 	aliased("abs", "norm")
+	see(`value magnitudeSqr`)
 	shared Float magnitude => hypot(re, im);
 	
-	"The squared magnitude of this number."
+	"The squared [[magnitude]] of this number."
 	shared Float magnitudeSqr => re^2 + im^2;
 	
-	"This number scaled so its magnitude equals 1, or 0 if it is zero."
+	"This number scaled so its [[magnitude]] equals 1, or 0 if it is zero."
 	aliased("sign")
 	shared Complex normalized {
 		value m = magnitude;
@@ -168,7 +174,8 @@ shared class Complex
 	
 	"Conjugate `q*` of this complex number.
 	 
-	 It has the same real part and negated imaginary part."
+	 It has the same real part and negated imaginary part.
+	 Or the same [[magnitude]] and negated [[argument]]."
 	shared Complex conjugate => Complex(re, -im);
 	
 	"Rotate this complex number counterclockwise by given `angle`."
@@ -185,17 +192,24 @@ shared class Complex
 	 Argument of `complexInfinity` is undefined,
 	 argument of values close to zero may be equal to `0` or `±π`
 	 according to cases listed on [[atan2]] behavior."
+	aliased("angle")
 	shared Float argument =>
 			if (finite) then atan2(im, re) else +0.0/+0.0;
 	
 	"Determines whether this value is finite. Produces `false` for
 	 [[Complex.infinity]] and undefined values."
+	see(`value infinite`)
+	see(`value undefined`)
 	shared Boolean finite => re.finite;
 	
 	"Determines whether this value is [[Complex.infinity]]."
+	see(`value finite`)
+	see(`value undefined`)
 	shared Boolean infinite => re.infinite;
 	
 	"Determines whether this value is undefined."
+	see(`value finite`)
+	see(`value infinite`)
 	shared Boolean undefined => re.undefined;
 }
 

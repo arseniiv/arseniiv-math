@@ -9,6 +9,14 @@ shared class MobiusTransform
 		satisfies Summable<MobiusTransform>
 		& Invertible<MobiusTransform> {
 	
+	static variable MobiusTransform? identity_ = null;
+	
+	"Identity transformation, `MobiusTransform.identity(z) = z`."
+	shared static MobiusTransform identity =>
+			identity_ else (identity_ = MobiusTransform(
+				Complex.unit,	Complex.zero,
+				Complex.zero, Complex.unit));
+	
 	"A parameter of transformation."
 	shared Complex a;
 	
@@ -116,7 +124,7 @@ shared class MobiusTransform
 	 If a transformation is identity, any point is fixed,
 	 and here we return `[]`.
 	 Otherwise, two fixed points (or one double fixed point) exist."
-	shared []|Complex[2] fixedPoints {
+	shared []|Complex[1]|Complex[2] fixedPoints {
 		value amd = a - d;
 		if (c == Complex.zero) {
 			return [-b / amd, Complex.infinity];
@@ -126,6 +134,7 @@ shared class MobiusTransform
 			// `cz^2 - (a - d)z - b == 0`
 			value dSqrt = root(amd^2.0 + 4.0 ** b * c, 2);
 			return [0.5 ** (amd + dSqrt) / c, 0.5 ** (amd - dSqrt) / c];
+			// TODO extract normal quadratic-solving function for complexes! Including linear case
 		}
 	}
 	

@@ -2,7 +2,7 @@ import name.arseniiv.math.complex {
 	...
 }
 
-"Run the module `info.arseniiv.math`."
+"Run the module `name.arseniiv.math.complex`."
 void run() {
 	value a = Complex.infinity;
 	value b = Complex.zero;

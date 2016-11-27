@@ -7,7 +7,7 @@ import ceylon.numeric.float {
 	flog=log
 }
 
-import name.arseniiv.math {
+import name.arseniiv.math.core {
 	tau
 }
 
