@@ -1,5 +1,4 @@
 "Returns `2u × v`."
-by("arseniiv")
 Quaternion vectorMult2(Float[3] u, Float[3] v) {
 	value [ux, uy, uz] = u;
 	value [vx, vy, vz] = v;
@@ -10,7 +9,6 @@ Quaternion vectorMult2(Float[3] u, Float[3] v) {
 }
 
 "Returns `s * v + u × v`."
-by("arseniiv")
 Float[3] scalarVectorMult(Float s, Float[3] u, Float[3] v) {
 	value [ux, uy, uz] = u;
 	value [vx, vy, vz] = v;

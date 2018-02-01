@@ -14,9 +14,12 @@ shared Integer randomInteger(Integer valueCount) =>
 
 "Solve quadratic equation
  
-     a x^2 + b x + c = 0
+     a x^2 + b x + c == 0
  
  the right way (I hope). You can safely pass `0` or near-zero values for `a`.
+ 
+ You can also safely pass `b` close to zero. If `a` and `b` are both too close,
+ `[]` is returned, which may signify there are no or infinitely many solutions.
  
  If there are two roots, they are ordered."
 shared []|Float[1]|Float[2] solveQuadratic(Float a, Float b, Float c) {
@@ -41,6 +44,7 @@ shared []|Float[1]|Float[2] solveQuadratic(Float a, Float b, Float c) {
 		}
 	}
 	else {
-		return [-c / b];
+		value x = -c / b;
+		return if (x.finite) then [x] else [];
 	}
 }

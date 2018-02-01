@@ -14,8 +14,8 @@ shared class MobiusTransform
 	"Identity transformation, `MobiusTransform.identity(z) = z`."
 	shared static MobiusTransform identity =>
 			identity_ else (identity_ = MobiusTransform(
-				Complex.unit,	Complex.zero,
-				Complex.zero, Complex.unit));
+				Complex.one,	Complex.zero,
+				Complex.zero, Complex.one));
 	
 	"A parameter of transformation."
 	shared Complex a;
@@ -49,17 +49,17 @@ shared class MobiusTransform
 		if (toZero.infinite) {
 			a = Complex.zero;
 			b = toInfinity - toUnit;
-			c = -Complex.unit;
+			c = -Complex.one;
 			d = toInfinity;
 		}
 		else if (toUnit.infinite) {
-			a = Complex.unit;
+			a = Complex.one;
 			b = -toZero;
-			c = Complex.unit;
+			c = Complex.one;
 			d = -toInfinity;
 		}
 		else if (toInfinity.infinite) {
-			a = -Complex.unit;
+			a = -Complex.one;
 			b = toZero;
 			c = Complex.zero;
 			d = toZero - toUnit;
@@ -124,18 +124,10 @@ shared class MobiusTransform
 	 If a transformation is identity, any point is fixed,
 	 and here we return `[]`.
 	 Otherwise, two fixed points (or one double fixed point) exist."
-	shared []|Complex[1]|Complex[2] fixedPoints {
-		value amd = a - d;
-		if (c == Complex.zero) {
-			return [-b / amd, Complex.infinity];
-		}
-		else {
-			// naïve solution of a quadratic equation
-			// `cz^2 - (a - d)z - b == 0`
-			value dSqrt = root(amd^2.0 + 4.0 ** b * c, 2);
-			return [0.5 ** (amd + dSqrt) / c, 0.5 ** (amd - dSqrt) / c];
-			// TODO extract normal quadratic-solving function for complexes! Including linear case
-		}
+	shared []|Complex[2] fixedPoints {
+		switch (res = solveQuadratic(c, a - d, b))
+		case (is []|Complex[2]) { return res; }
+		case ([Complex z]) { return [z, Complex.infinity]; }
 	}
 	
 }

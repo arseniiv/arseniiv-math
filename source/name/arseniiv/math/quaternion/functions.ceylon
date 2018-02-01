@@ -9,7 +9,6 @@ import ceylon.numeric.float {
 }
 
 "Exponent of a quaternion."
-by("arseniiv")
 shared Quaternion exp(Quaternion q) {
 	value v = q.vec;
 	value vmag = v.magnitude;
@@ -21,7 +20,6 @@ shared Quaternion exp(Quaternion q) {
  
  Quaternion logarithm is a multivalued function.
  Here we are returning a principal(?) value only."
-by("arseniiv")
 shared Quaternion log(Quaternion q) {
 	value v = q.vec;
 	value angle = atan2(v.magnitude, q.re);
@@ -32,7 +30,6 @@ shared Quaternion log(Quaternion q) {
 "Cosine and sine of a quaternion.
  
  Runs faster than separate calls to [[cos]] and [[sin]]."
-by("arseniiv")
 shared Quaternion[2] cosSin(Quaternion q) {
 	value re = q.re;
 	value v = q.vec;
@@ -45,7 +42,6 @@ shared Quaternion[2] cosSin(Quaternion q) {
 }
 
 "Cosine of a quaternion."
-by("arseniiv")
 see(`function cosSin`)
 shared Quaternion cos(Quaternion q) {
 	value re = q.re;
@@ -56,7 +52,6 @@ shared Quaternion cos(Quaternion q) {
 }
 
 "Sine of a quaternion."
-by("arseniiv")
 see(`function cosSin`)
 shared Quaternion sin(Quaternion q) {
 	value re = q.re;
@@ -69,7 +64,6 @@ shared Quaternion sin(Quaternion q) {
 "Hyperbolic cosine and sine of a quaternion.
  
  Runs faster than separate calls to [[cosh]] and [[sinh]]."
-by("arseniiv")
 shared Quaternion[2] coshSinh(Quaternion q) {
 	value re = q.re;
 	value v = q.vec;
@@ -82,7 +76,6 @@ shared Quaternion[2] coshSinh(Quaternion q) {
 }
 
 "Hyperbolic cosine of a quaternion."
-by("arseniiv")
 see(`function coshSinh`)
 shared Quaternion cosh(Quaternion q) {
 	value re = q.re;
@@ -93,7 +86,6 @@ shared Quaternion cosh(Quaternion q) {
 }
 
 "Hyperbolic sine of a quaternion."
-by("arseniiv")
 see(`function coshSinh`)
 shared Quaternion sinh(Quaternion q) {
 	value re = q.re;
@@ -104,7 +96,6 @@ shared Quaternion sinh(Quaternion q) {
 }
 
 "Spherical linear interpolation (SLERP) between rotors."
-by("arseniiv")
 see(`function Quaternion.rotor`)
 shared Quaternion(Float) slerp(Quaternion rotor1, Quaternion rotor2) {
 	value quotient = rotor1.conjugate * rotor2;

@@ -61,6 +61,16 @@ See also [Quaternions and spatial rotation](https://en.wikipedia.org/wiki/Quater
 
 ## Version history
 
+### 0.1.4
+
+* Ceylon 1.3.3.
+* Rational numbers in `name.arseniiv.math.rational`.
+* Renamed `Complex.unit` and `Quaternion.unit` to respective `one`s.
+* Added `sqrt` for complex numbers and complex-valued quadratic solver.
+* Real quadratic solver slightly improved.
+* Number classes made `final`. Now you just can’t.
+* Added several missed tests.
+
 ### 0.1.3
 
 * Quadratic equation solver, pseudorandom generators and some minor stuff added.

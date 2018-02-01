@@ -10,7 +10,6 @@ import ceylon.numeric.float {
 }
 
 import name.arseniiv.math.core {
-
 	randomInteger
 }
 
@@ -33,7 +32,7 @@ shared class Tests() {
 	shared void summableTests() {
 		assertAll([
 			() => assertEquals((a + b) + c, a + (b + c),
-				"`plus` associativity should hold",
+				"`plus` should be associative",
 				complexNearlyEquals),
 			() => assertEquals(a + Complex.zero, a,
 				"`Complex(0)` should be right neutral to `plus`"),
@@ -57,11 +56,11 @@ shared class Tests() {
 	shared void numericTests() {
 		value ia = a.inverse;
 		assertAll([
-			() => assertEquals(a * Complex.unit, a,
+			() => assertEquals(a * Complex.one, a,
 				"`Complex(1)` should be left neutral to `times`"),
-			() => assertEquals(a * Complex.unit, a,
+			() => assertEquals(a * Complex.one, a,
 				"`Complex(1)` should be right neutral to `times`"),
-			() => assertEquals(a * ia, Complex.unit,
+			() => assertEquals(a * ia, Complex.one,
 				"`inverse` should work as expected",
 				complexNearlyEquals),
 			() => assertEquals(a * (b + c), a * b + a * c,
@@ -72,6 +71,12 @@ shared class Tests() {
 				complexNearlyEquals),
 			() => assertEquals(b / a, b * ia,
 				"`divided` should work as expected",
+				complexNearlyEquals),
+			() => assertEquals(a + b, b + a,
+				"`plus` should be commutative",
+				complexNearlyEquals),
+			() => assertEquals((a * b) * c, a * (b * c),
+				"`times` should be associative",
 				complexNearlyEquals),
 			() => assertEquals(a * b, b * a,
 				"`times` should be commutative",
@@ -101,7 +106,7 @@ shared class Tests() {
 	test
 	shared void exponentiableTests() {
 		assertAll([
-			() => assertEquals(a ^ 0.0, Complex.unit,
+			() => assertEquals(a ^ 0.0, Complex.one,
 				"`power` with exponent of 0 should work as expected",
 				complexNearlyEquals),
 			() => assertEquals(a ^ 1.0, a,
@@ -159,7 +164,7 @@ shared class Tests() {
 	test
 	shared void expLogTests() {
 		assertAll([
-			() => assertEquals(exp(Complex.zero), Complex.unit,
+			() => assertEquals(exp(Complex.zero), Complex.one,
 				"`exp` of 0 should work as expected",
 				complexNearlyEquals),
 			() => assertEquals(exp(log(a)), a,

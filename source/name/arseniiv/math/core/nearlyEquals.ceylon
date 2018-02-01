@@ -16,10 +16,7 @@ shared Boolean nearlyEquals(Float relativeErrorInEpsilons = 1.0)
 	value am = a.magnitude;
 	value bm = b.magnitude;
 	value diffm = (a - b).magnitude;
-	if (diffm == 0.0) { return true; }
-	else if (am.infinite && bm.infinite) {
-		return am.positive == bm.positive;
-	}
+	if (a == b) { return true; }
 	else if (a == 0.0 || b == 0.0 || diffm < minNormalFloat) {
 		// a or b is zero or both are extremely close to it
 		// relative error is less meaningful here

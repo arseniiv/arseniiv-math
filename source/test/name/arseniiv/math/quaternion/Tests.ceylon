@@ -15,8 +15,8 @@ import name.arseniiv.math.quaternion {
 import test.name.arseniiv.math.core {
 	...
 }
-import name.arseniiv.math.core {
 
+import name.arseniiv.math.core {
 	randomAngle
 }
 
@@ -33,7 +33,7 @@ shared class Tests() {
 	shared void summableTests() {
 		assertAll([
 			() => assertEquals((a + b) + c, a + (b + c),
-				"`plus` associativity should hold",
+				"`plus` should be associative",
 				quaternionNearlyEquals),
 			() => assertEquals(a + Quaternion.zero, a,
 				"`Quaternion(0)` should be right neutral to `plus`"),
@@ -57,11 +57,11 @@ shared class Tests() {
 	shared void numericTests() {
 		value ia = a.inverse;
 		assertAll([
-			() => assertEquals(a * Quaternion.unit, a,
+			() => assertEquals(a * Quaternion.one, a,
 				"`Quaternion(1)` should be left neutral to `times`"),
-			() => assertEquals(a * Quaternion.unit, a,
+			() => assertEquals(a * Quaternion.one, a,
 				"`Quaternion(1)` should be right neutral to `times`"),
-			() => assertEquals(a * ia, Quaternion.unit,
+			() => assertEquals(a * ia, Quaternion.one,
 				"`inverse` should work as expected",
 				quaternionNearlyEquals),
 			() => assertEquals(a * (b + c), a * b + a * c,
@@ -72,6 +72,12 @@ shared class Tests() {
 				quaternionNearlyEquals),
 			() => assertEquals(b / a, b * ia,
 				"`divided` should work as expected",
+				quaternionNearlyEquals),
+			() => assertEquals(a + b, b + a,
+				"`plus` should be commutative",
+				quaternionNearlyEquals),
+			() => assertEquals((a * b) * c, a * (b * c),
+				"`times` should be associative",
 				quaternionNearlyEquals)
 			// `times` commutativity `a * b == b * a` should not hold
 		]);
@@ -100,7 +106,7 @@ shared class Tests() {
 	test
 	shared void exponentiableTests() {
 		assertAll([
-			() => assertEquals(a ^ 0.0, Quaternion.unit,
+			() => assertEquals(a ^ 0.0, Quaternion.one,
 				"`power` with exponent of 0 should work as expected",
 				quaternionNearlyEquals),
 			() => assertEquals(a ^ 1.0, a,
@@ -159,7 +165,7 @@ shared class Tests() {
 	test
 	shared void expLogTests() {
 		assertAll([
-			() => assertEquals(exp(Quaternion.zero), Quaternion.unit,
+			() => assertEquals(exp(Quaternion.zero), Quaternion.one,
 				"`exp` of 0 should work as expected",
 				quaternionNearlyEquals),
 			() => assertEquals(exp(log(a)), a,

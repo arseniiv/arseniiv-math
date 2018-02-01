@@ -30,11 +30,9 @@ import name.arseniiv.math.core.internal {
  Algebra on these values may fail. Guaranteed identities are:
  - `0.inverse == Complex.infinity`
  - `Complex.infinity.inverse == 0`"
-by("arseniiv")
-shared class Complex
+shared final class Complex
 		extends Object
-		satisfies Exponentiable<Complex, Float>
-		& Scalable<Float, Complex> {
+		satisfies Exponentiable<Complex, Float> & Scalable<Float, Complex> {
 	
 	"Real part."
 	shared Float re;
@@ -71,7 +69,7 @@ shared class Complex
 	shared new zero extends Complex(0.0) {}
 	
 	"A unit complex number."
-	shared new unit extends Complex(1.0) {}
+	shared new one extends Complex(1.0) {}
 	
 	"An imaginary unit _i_."
 	shared new i extends Complex(0.0, 1.0) {}
@@ -109,10 +107,10 @@ shared class Complex
 	"The result of raising this number to the given _integer_ power."
 	see(`function power`)
 	shared Complex integerPower(Integer other) {
-		if (other == 0) { return unit; }
+		if (other == 0) { return one; }
 		variable value n = other.magnitude;
 		variable value x = other.positive then this else inverse;
-		variable value y = unit;
+		variable value y = one;
 		while (n != 1) {
 			if (!n.even) {
 				y *= x;
@@ -141,7 +139,7 @@ shared class Complex
 	
 	hash => re.hash + (if (re.finite) then im.hash else 0);
 	
-	"Inverse `q^(-1)` of this complex number.
+	"Inverse `z^(-1)` of this complex number.
 	 
 	 Inverse satisfies followig identities:
 	 - `z^(-1) * z == z * z^(-1) == 1`

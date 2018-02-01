@@ -10,11 +10,9 @@ import name.arseniiv.math.core.internal {
 }
 
 "A quaternion."
-by("arseniiv")
-shared class Quaternion
+shared final class Quaternion
 		extends Object
-		satisfies Exponentiable<Quaternion, Float>
-		& Scalable<Float, Quaternion> {
+		satisfies Exponentiable<Quaternion, Float> & Scalable<Float, Quaternion> {
 	
 	"Real, or scalar part."
 	shared Float re;
@@ -67,7 +65,7 @@ shared class Quaternion
 	shared new zero extends Quaternion(0.0) {}
 	
 	"A unit quaternion."
-	shared new unit extends Quaternion(1.0) {}
+	shared new one extends Quaternion(1.0) {}
 	
 	"Pure vector quaternion _i_."
 	shared new i extends vector(1.0, 0.0, 0.0) {}
@@ -126,10 +124,10 @@ shared class Quaternion
 	"The result of raising this number to the given _integer_ power."
 	see(`function power`)
 	shared Quaternion integerPower(Integer other) {
-		if (other == 0) { return unit; }
+		if (other == 0) { return one; }
 		variable value n = other.magnitude;
 		variable value x = other.positive then this else inverse;
-		variable value y = unit;
+		variable value y = one;
 		while (n != 1) {
 			if (!n.even) {
 				y *= x;
