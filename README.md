@@ -5,7 +5,7 @@ Some mathematical stuff written in Ceylon.
 
 ## Import
 
-So far you can get this thing from here only. Clone this repo and compile, and export modules `name.arseniiv.math.core`, `name.arseniiv.math.complex`, `name.arseniiv.math.quaternion` somewhere. At the moment, there is three packages:
+So far you can get this thing from here only. Clone this repo and compile, and export modules `name.arseniiv.math.<something>` somewhere. At the moment, there is four packages:
 
 ### Common stuff in `name.arseniiv.math.core`
 
@@ -16,13 +16,27 @@ value rightAngle = 90 * degrees; // indeed 90°
 value hexagonAngle = 120 * degrees; // and so on…
 ```
 
-Also there is uniform pseudorandom generators for angles and integers, and quadratic equation solver, and near-equality comparer for `Float`s.
+Also there is uniform pseudorandom generators for angles and integers, quadratic equation solver, and near-equality comparer for `Float`s.
 
 ### Complex numbers in `name.arseniiv.math.complex`
 
-Operations with complex numbers including basic elementary functions: exp, log, sin, cos, sinh, cosh. (See Ceylon docs.)
+Operations with complex numbers including basic elementary functions: exp, log, sin, cos, sinh, cosh. (See docs.)
 
 There is also several bits of code about [Möbius transformations](https://en.wikipedia.org/wiki/M%C3%B6bius_transformation) with correct handling of complex infinity.
+
+### Rational numbers in `name.arseniiv.math.rational`
+
+Since 0.1.4.
+
+* Arithmetic, including integer powers.
+* Conversion to/from digit sequences: −248781 / 74 ↔ −3361.9(054), including non-decimal bases.
+* Approximation of `Floats` with given accuracy.
+* Conversion to/from [continued fractions][cfrac].
+* Vanity: [egyptian fraction expansion][egy], [mediant][med].
+
+[cfrac]: [https://en.wikipedia.org/wiki/Continued_fraction]
+[egy]: [https://en.wikipedia.org/wiki/Egyptian_fraction]
+[med]: [https://en.wikipedia.org/wiki/Mediant_(mathematics)]
 
 ### Quaternions in `name.arseniiv.math.quaternion`
 
