@@ -5,7 +5,7 @@ import ceylon.whole {
 }
 
 "A rational value of the given finite [continued fraction][1].
- [1]: [https://en.wikipedia.org/wiki/Continued_fraction]
+ [1]: https://en.wikipedia.org/wiki/Continued_fraction
  
  Doesn’t terminate if `cf` is infinite."
 see(`function continuedFraction`)
@@ -14,7 +14,7 @@ shared Rational evalContinuedFraction({Whole+} cf) =>
 		Rational.unreduced(n, d); // gcd(n, d) == 1 for convergents
 
 "A [continued fraction][1] representation of this value.
- [1]: [https://en.wikipedia.org/wiki/Continued_fraction]"
+ [1]: https://en.wikipedia.org/wiki/Continued_fraction"
 see(`function evalContinuedFraction`)
 shared {Whole+} continuedFraction(Rational val) {
 	value int = val.floor;
@@ -26,7 +26,7 @@ shared {Whole+} continuedFraction(Rational val) {
 }
 
 "Convergents of a [continued fraction][1] `cf`.
- [1]: [https://en.wikipedia.org/wiki/Continued_fraction]"
+ [1]: https://en.wikipedia.org/wiki/Continued_fraction"
 Iterable<Whole[2], Absent> convergents<Absent>(Iterable<Whole, Absent> cf)
 		given Absent satisfies Null =>
 		object satisfies Iterable<Whole[2], Absent> {

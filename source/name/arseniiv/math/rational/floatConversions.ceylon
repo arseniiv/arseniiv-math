@@ -10,7 +10,7 @@ import ceylon.numeric.float {
  `number` within `radius`, that is, a simplest rational in
  a closed interval [`number` − `radius`; `number` + `radius`].
  
- [1]: [https://en.wikipedia.org/wiki/Continued_fraction#Best_rational_approximations]
+ [1]: https://en.wikipedia.org/wiki/Continued_fraction#Best_rational_approximations
  
  A rational _p_/_q_ is said to be _simpler_ than rational _p′_/_q′_
  if |_p_| ≤ |_p′_| and _q_ ≤ _q′_.
@@ -46,7 +46,7 @@ Rational? simplestRationalIn(Float left, Float right) {
  
  Returns `null` if [[number]] is not [[finite|Float.finite]].
  
- [1]: [https://en.wikipedia.org/wiki/Continued_fraction#Best_rational_approximations]"
+ [1]: https://en.wikipedia.org/wiki/Continued_fraction#Best_rational_approximations"
 see (`function approximateWithin`)
 shared Rational? approximate(Float number, Whole maxDenominator) {
 	value cs = convergents(floatContinuedFraction(number));

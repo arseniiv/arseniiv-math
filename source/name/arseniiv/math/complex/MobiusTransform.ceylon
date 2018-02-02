@@ -1,4 +1,4 @@
-"[[Möbius transformation|https://en.wikipedia.org/wiki/M%C3%B6bius_transformation]]
+"[Möbius transformation](https://en.wikipedia.org/wiki/M%C3%B6bius_transformation)
  is an invertible transformation of a [[complex number|Complex]] `z` to
  
      (a z + b) / (c z + d)
