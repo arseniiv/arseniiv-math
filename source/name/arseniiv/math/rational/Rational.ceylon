@@ -40,7 +40,7 @@ shared final class Rational
 	 * if `numerator`/`denominator` is in lowest terms.
 	 
 	 Use it only in case you know these holds."
-	shared restricted(`module name.arseniiv.math.rational`)
+	shared restricted(`module name.arseniiv.math`)
 	new unreduced(Whole numerator, Whole denominator) extends Object() {
 		this.numerator = numerator;
 		this.denominator = denominator;
@@ -200,7 +200,8 @@ shared final class Rational
 	
 	powerOfInteger(Integer integer) => power(integer);
 	
-	shared restricted(`module name.arseniiv.math.rational`)
+	shared restricted(`module name.arseniiv.math`)
+	see (`value wholePart`)
 	Whole wholePartWhole => numerator / denominator;
 	
 	see (`value floor`, `value ceiling`)

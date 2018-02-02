@@ -5,7 +5,9 @@ Some mathematical stuff written in Ceylon.
 
 ## Import
 
-So far you can get this thing from here only. Clone this repo and compile, and export modules `name.arseniiv.math.<something>` somewhere. At the moment, there is four packages:
+    import name.arseniiv.math "0.1.5";
+
+At the moment, there is four packages:
 
 ### Common stuff in `name.arseniiv.math.core`
 
@@ -74,6 +76,10 @@ Function `slerp` returns ‘interpolator’ of type `Quaternion(Float)` which ca
 See also [Quaternions and spatial rotation](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation) in Wikipedia.
 
 ## Version history
+
+### 0.1.5
+
+* Remodularization: separate modules are back to being packages again. It seems they weren’t that big.
 
 ### 0.1.4
 
