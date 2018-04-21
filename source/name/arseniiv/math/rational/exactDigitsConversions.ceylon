@@ -160,6 +160,7 @@ shared class Digits extends Object {
 [[Integer*], [Integer+]] digitsFromProperFraction(Rational a, Integer radix) {
 	value digitsRemainders = LinkedList<[Integer, Whole]>();
 	value remainders = naturalOrderTreeSet<Whole> {};
+	value digits => digitsRemainders.collect(([d, r_]) => d);
 	variable value x = a.numerator.magnitude;
 	variable value y = a.denominator;
 	while (!x.zero) {
@@ -167,7 +168,6 @@ shared class Digits extends Object {
 		if (r in remainders) {
 			assert (exists periodStartIndex =
 					digitsRemainders.firstIndexWhere(([d, r_]) => r_ == r));
-			value digits = digitsRemainders.collect(([d, r_]) => d);
 			value [frac, periodicFrac] = digits.slice(periodStartIndex);
 			assert (nonempty periodicFrac);
 			return [frac, periodicFrac];
@@ -176,7 +176,6 @@ shared class Digits extends Object {
 		remainders.add(r);
 		x = r;
 	}
-	"Rational numbers have finite digit expansion."
-	assert (false);
+	return [digits, [0]];
 }
 

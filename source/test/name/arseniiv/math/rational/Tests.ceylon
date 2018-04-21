@@ -176,7 +176,23 @@ shared class Tests() {
 			() => assertEquals(
 				Rational.small(3, 8),
 				Digits(false, [], [0, 1, 1], [0], 2).rational,
-				"3 / 8 <== 0.011_2")
+				"3 / 8 <== 0.011_2"),
+			() => assertEquals(
+				Digits.fromRational(Rational.small(1, 4)),
+				Digits(false, [], [2, 5]),
+				"1 / 4 ==> 0.25"),
+			() => assertEquals(
+				Digits.fromRational(Rational.small(1, 3)),
+				Digits(false, [], [], [3]),
+				"1 / 3 ==> 0.(3)"),
+			() => assertEquals(
+				Digits.fromRational(Rational.small(1, 2)),
+				Digits(false, [], [5]),
+				"1 / 2 ==> 0.5"),
+			() => assertEquals(
+				Digits.fromRational(Rational.small(1, 1)),
+				Digits(false, [1], []),
+				"1 / 1 ==> 1.0")
 		]);
 	}
 	
