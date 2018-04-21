@@ -6,7 +6,7 @@
  See packages’ documentation and `README.md`."
 license("http://opensource.org/licenses/MIT")
 by("arseniiv")
-module name.arseniiv.math "0.1.5" {
+module name.arseniiv.math "0.1.6" {
 	native("jvm") import java.base "8";
 	value ceylonVersion = "1.3.3";
 	import ceylon.numeric ceylonVersion;
