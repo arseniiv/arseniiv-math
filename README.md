@@ -77,6 +77,10 @@ See also [Quaternions and spatial rotation](https://en.wikipedia.org/wiki/Quater
 
 ## Version history
 
+### 0.1.6
+
+* A small bugfix for `Digits.fromRational`.
+
 ### 0.1.5
 
 * Remodularization: separate modules are back to being packages again. It seems they weren’t that big.
