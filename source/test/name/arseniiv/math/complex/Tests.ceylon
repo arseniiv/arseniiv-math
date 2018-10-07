@@ -156,7 +156,7 @@ shared class Tests() {
 				"`magnitudeSqr` should indeed be what it claims to be",
 				floatNearlyEquals),
 			() => assertEquals(a.normalized.magnitude, 1.0,
-				"magnitude of normalized quaternion should equal 1",
+				"magnitude of normalized complex number should equal 1",
 				floatNearlyEquals)
 		]);
 	}
